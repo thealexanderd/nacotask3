@@ -3,7 +3,7 @@ import numpy as np
 from sklearn.metrics import roc_curve, auc, roc_auc_score
 import matplotlib.pyplot as plt
 
-def read_and_sort_numbers(file_path_english, file_path_tagalog):
+def read(file_path_english, file_path_tagalog):
     try:
         with open(file_path_english, 'r') as file:
             numbers = [float(line.strip()) for line in file.readlines()]
@@ -23,11 +23,11 @@ def read_and_sort_numbers(file_path_english, file_path_tagalog):
 
 mean_auc = 0
 for i in range(1, 10):
-    sorted_list, labels = read_and_sort_numbers(f'english{i}.txt', f'middle{i}.txt')
-    auc_score = roc_auc_score(labels, sorted_list)
+    scores, labels = read(f'english{i}.txt', f'middle{i}.txt')
+    auc_score = roc_auc_score(labels, scores)
     mean_auc += auc_score
 
-    fpr, tpr, thresholds = roc_curve(labels, sorted_list)
+    fpr, tpr, thresholds = roc_curve(labels, scores)
 
     plt.figure(figsize=(8, 6))
     plt.plot(fpr, tpr, color='darkorange', lw=2, label=f'ROC curve (area = {auc_score:.2f})')
