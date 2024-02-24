@@ -48,8 +48,8 @@ part = 1
 
 for part in parts:
     for r in rs:
-        sorted_list, labels = read(f'snd_cert7{r}-{part}.txt', f'{folder}-chunks-7-identifiers.{part}.txt', f'{folder}.{part}.labels')
-        auc_score = roc_auc_score(labels, sorted_list)
+        scores, labels = read(f'snd_cert7{r}-{part}.txt', f'{folder}-chunks-7-identifiers.{part}.txt', f'{folder}.{part}.labels')
+        auc_score = roc_auc_score(labels, scores)
         print(auc_score)
 
         fpr, tpr, thresholds = roc_curve(labels, sorted_list)
